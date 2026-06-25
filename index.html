@@ -1,622 +1,526 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Portfolio – [Nate]</title>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&family=DM+Mono&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mara Lenz — Portfolio</title>
+<meta name="description" content="Multidisziplinäre Gestalterin. Brand, UI/UX, Motion & Art Direction." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Space+Grotesk:wght@400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#15111F;
+    --ink-2:#1B1530;
+    --surface:#221B38;
+    --text:#ECE7F4;
+    --muted:#9A91B0;
+    --coral:#FF5E5B;
+    --cyan:#36E0DC;
+    --line:rgba(236,231,244,0.12);
+    --dx:0px; --dy:0px;
+    --mx:50vw; --my:50vh;
+  }
 
-    :root {
-      --ink:    #1a1a1a;
-      --mist:   #f0eeea;
-      --paper:  #faf9f7;
-      --accent: #2d5be3;
-      --soft:   #9b9b8e;
-      --border: #e2e0db;
-    }
+  *{box-sizing:border-box;margin:0;padding:0}
 
-    html { scroll-behavior: smooth; }
+  html{scroll-behavior:smooth}
 
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--paper);
-      color: var(--ink);
-      font-size: 16px;
-      line-height: 1.6;
-    }
+  body{
+    background:var(--ink);
+    color:var(--text);
+    font-family:"Space Grotesk",system-ui,sans-serif;
+    font-size:clamp(16px,1.05vw,18px);
+    line-height:1.6;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
 
-    /* ── NAV ── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 1.2rem 2.5rem;
-      background: rgba(250,249,247,0.88);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border);
-    }
-    .nav-logo {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.85rem;
-      color: var(--accent);
-      letter-spacing: 0.05em;
-    }
-    .nav-links { display: flex; gap: 2rem; list-style: none; }
-    .nav-links a {
-      text-decoration: none;
-      color: var(--soft);
-      font-size: 0.9rem;
-      font-weight: 400;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--ink); }
+  /* ambient layers --------------------------------------------------- */
+  #field{
+    position:fixed;inset:0;width:100%;height:100%;
+    z-index:0;pointer-events:none;opacity:.9;
+  }
+  .glow{
+    position:fixed;z-index:0;pointer-events:none;
+    width:46vmax;height:46vmax;left:var(--mx);top:var(--my);
+    transform:translate(-50%,-50%);
+    background:radial-gradient(circle, rgba(54,224,220,.10), rgba(255,94,91,.06) 38%, transparent 62%);
+    transition:opacity .6s ease;
+    filter:blur(8px);
+  }
 
-    /* ── HERO ── */
-    #hero {
-      min-height: 100vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: center;
-      padding: 8rem 5rem 5rem;
-      gap: 4rem;
-    }
-    .hero-text {}
-    .hero-eyebrow {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.8rem;
-      color: var(--accent);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      margin-bottom: 1.2rem;
-    }
-    .hero-name {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(3rem, 6vw, 5.5rem);
-      line-height: 1.05;
-      letter-spacing: -0.02em;
-      margin-bottom: 1.5rem;
-    }
-    .hero-name em {
-      font-style: italic;
-      color: var(--accent);
-    }
-    .hero-sub {
-      font-size: 1.1rem;
-      color: var(--soft);
-      max-width: 420px;
-      line-height: 1.75;
-      margin-bottom: 2.5rem;
-    }
-    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
-    .btn {
-      display: inline-block;
-      padding: 0.75rem 1.75rem;
-      border-radius: 3px;
-      font-size: 0.9rem;
-      font-weight: 500;
-      text-decoration: none;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .btn-primary {
-      background: var(--accent);
-      color: #fff;
-    }
-    .btn-primary:hover { background: #1e47c8; }
-    .btn-outline {
-      border: 1.5px solid var(--border);
-      color: var(--ink);
-      background: transparent;
-    }
-    .btn-outline:hover { border-color: var(--ink); }
+  /* layout shell ----------------------------------------------------- */
+  .wrap{position:relative;z-index:2;max-width:1180px;margin:0 auto;padding:0 clamp(20px,5vw,64px)}
 
-    /* avatar placeholder */
-    .hero-visual {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .avatar-frame {
-      width: 340px; height: 420px;
-      background: var(--mist);
-      border-radius: 200px 200px 160px 160px;
-      position: relative;
-      overflow: hidden;
-      border: 1px solid var(--border);
-    }
-    .avatar-frame img {
-      width: 100%; height: 100%; object-fit: cover;
-    }
-    .avatar-placeholder {
-      width: 100%; height: 100%;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      gap: 0.5rem;
-      color: var(--soft);
-    }
-    .avatar-placeholder svg { opacity: 0.35; }
-    .avatar-placeholder span {
-      font-size: 0.75rem;
-      font-family: 'DM Mono', monospace;
-      opacity: 0.5;
-    }
+  /* side index ------------------------------------------------------- */
+  .index{
+    position:fixed;left:max(18px,2vw);top:50%;transform:translateY(-50%);
+    z-index:5;display:flex;flex-direction:column;gap:18px;
+  }
+  .index a{
+    display:flex;align-items:center;gap:10px;text-decoration:none;
+    color:var(--muted);font-family:"Space Mono",monospace;font-size:11px;
+    letter-spacing:.08em;opacity:.65;transition:opacity .25s,color .25s;
+  }
+  .index a .tick{
+    width:22px;height:2px;background:currentColor;display:block;transition:width .25s,background .25s;
+  }
+  .index a .lbl{opacity:0;transform:translateX(-4px);transition:opacity .25s,transform .25s}
+  .index a:hover,.index a:focus-visible{opacity:1;color:var(--text);outline:none}
+  .index a:hover .lbl,.index a:focus-visible .lbl{opacity:1;transform:none}
+  .index a.active{opacity:1;color:var(--coral)}
+  .index a.active .tick{width:34px;background:var(--coral)}
+  .index a.active .lbl{opacity:1;transform:none}
 
-    /* floating tag */
-    .float-tag {
-      position: absolute; bottom: 2rem; left: -1.5rem;
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 0.6rem 1rem;
-      font-family: 'DM Mono', monospace;
-      font-size: 0.75rem;
-      color: var(--accent);
-      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
-    }
+  /* shared section bits --------------------------------------------- */
+  section{position:relative;padding:clamp(80px,12vh,150px) 0}
+  .eyebrow{
+    font-family:"Space Mono",monospace;font-size:12px;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--cyan);margin-bottom:18px;
+    display:flex;align-items:center;gap:12px;
+  }
+  .eyebrow::before{content:"";width:32px;height:1px;background:var(--cyan);display:inline-block}
+  h2{
+    font-family:"Syne",sans-serif;font-weight:800;line-height:1;
+    font-size:clamp(34px,6vw,68px);letter-spacing:-.02em;margin-bottom:28px;
+  }
+  .lead{font-size:clamp(18px,2vw,22px);color:var(--text);max-width:60ch}
+  .muted{color:var(--muted)}
 
-    /* ── DIVIDER ── */
-    .section-divider {
-      border: none;
-      border-top: 1px solid var(--border);
-      margin: 0 5rem;
-    }
+  /* HERO ------------------------------------------------------------- */
+  .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding-top:90px}
+  .hero .eyebrow{margin-bottom:24px}
+  .name{
+    font-family:"Syne",sans-serif;font-weight:800;
+    font-size:clamp(64px,16.5vw,230px);line-height:.86;letter-spacing:-.04em;
+    text-transform:uppercase;position:relative;width:fit-content;
+    text-shadow:
+      var(--dx) var(--dy) 0 var(--coral),
+      calc(var(--dx)*-1) calc(var(--dy)*-1) 0 var(--cyan);
+    transition:text-shadow .08s linear;
+    will-change:text-shadow;
+  }
+  .name span{display:block}
+  .tagline{
+    font-family:"Syne",sans-serif;font-weight:600;
+    font-size:clamp(20px,3.4vw,40px);letter-spacing:-.01em;margin-top:clamp(24px,4vh,46px);
+    max-width:18ch;line-height:1.08;
+  }
+  .tagline em{font-style:normal;color:var(--coral)}
+  .hero-foot{
+    margin-top:clamp(34px,6vh,64px);display:flex;flex-wrap:wrap;gap:14px 28px;align-items:center;
+    font-family:"Space Mono",monospace;font-size:12px;letter-spacing:.1em;color:var(--muted);
+  }
+  .scrollhint{display:flex;align-items:center;gap:10px}
+  .scrollhint .bar{position:relative;width:46px;height:1px;background:var(--line);overflow:hidden}
+  .scrollhint .bar::after{content:"";position:absolute;inset:0;width:40%;background:var(--cyan);animation:slide 2.4s ease-in-out infinite}
+  @keyframes slide{0%{transform:translateX(-100%)}60%,100%{transform:translateX(260%)}}
 
-    /* ── ABOUT ── */
-    #about {
-      padding: 6rem 5rem;
-      display: grid;
-      grid-template-columns: 1fr 1.6fr;
-      gap: 6rem;
-      align-items: start;
-    }
-    .section-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.75rem;
-      color: var(--soft);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      padding-top: 0.4rem;
-    }
-    .about-body h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(1.8rem, 3vw, 2.6rem);
-      line-height: 1.2;
-      margin-bottom: 1.5rem;
-      letter-spacing: -0.01em;
-    }
-    .about-body p {
-      color: #444;
-      line-height: 1.85;
-      margin-bottom: 1rem;
-      font-size: 1rem;
-    }
+  /* ABOUT ------------------------------------------------------------ */
+  .about-grid{display:grid;grid-template-columns:1.3fr .9fr;gap:clamp(36px,6vw,80px);align-items:start}
+  .about-grid p+p{margin-top:18px}
+  .notes{
+    border:1px solid var(--line);background:rgba(255,255,255,.015);
+    padding:26px 26px 14px;border-radius:2px;
+  }
+  .notes .nt-title{
+    font-family:"Space Mono",monospace;font-size:11px;letter-spacing:.2em;
+    color:var(--muted);text-transform:uppercase;margin-bottom:18px;
+  }
+  .note-row{
+    display:flex;justify-content:space-between;gap:16px;padding:13px 0;
+    border-top:1px solid var(--line);font-family:"Space Mono",monospace;font-size:13px;
+  }
+  .note-row .k{color:var(--muted)}
+  .note-row .v{color:var(--text);text-align:right}
+  .note-row .v.live{color:var(--cyan)}
+  .note-row .v.live::before{
+    content:"";display:inline-block;width:7px;height:7px;border-radius:50%;
+    background:var(--cyan);margin-right:8px;box-shadow:0 0 0 0 rgba(54,224,220,.6);
+    animation:pulse 2s infinite;vertical-align:middle;
+  }
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(54,224,220,.5)}70%{box-shadow:0 0 0 9px rgba(54,224,220,0)}100%{box-shadow:0 0 0 0 rgba(54,224,220,0)}}
 
-    /* facts row */
-    .facts {
-      display: flex;
-      gap: 2.5rem;
-      margin-top: 2.5rem;
-      flex-wrap: wrap;
-    }
-    .fact-item {}
-    .fact-value {
-      font-family: 'DM Serif Display', serif;
-      font-size: 2rem;
-      color: var(--accent);
-      line-height: 1;
-    }
-    .fact-label {
-      font-size: 0.8rem;
-      color: var(--soft);
-      margin-top: 0.2rem;
-    }
+  /* WORK ------------------------------------------------------------- */
+  .work-head{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;margin-bottom:48px}
+  .work-head .count{font-family:"Space Mono",monospace;color:var(--muted);font-size:13px;letter-spacing:.1em}
+  .projects{display:grid;gap:1px;background:var(--line);border:1px solid var(--line)}
+  .project{
+    background:var(--ink);padding:clamp(26px,3.5vw,46px);
+    display:grid;grid-template-columns:auto 1fr auto;gap:clamp(18px,3vw,48px);align-items:center;
+    cursor:default;transition:background .35s ease;position:relative;overflow:hidden;
+  }
+  .project::before{
+    content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--coral);
+    transform:scaleY(0);transform-origin:top;transition:transform .4s ease;
+  }
+  .project:hover{background:var(--ink-2)}
+  .project:hover::before{transform:scaleY(1)}
+  .project .pnum{font-family:"Space Mono",monospace;color:var(--muted);font-size:13px}
+  .project .pmain h3{
+    font-family:"Syne",sans-serif;font-weight:700;font-size:clamp(22px,3vw,34px);
+    letter-spacing:-.01em;line-height:1.05;margin-bottom:8px;transition:transform .35s ease;
+  }
+  .project:hover .pmain h3{transform:translateX(6px)}
+  .project .pmain .pdesc{color:var(--muted);max-width:52ch;font-size:15px}
+  .project .ptags{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;max-width:230px}
+  .tag{
+    font-family:"Space Mono",monospace;font-size:11px;letter-spacing:.06em;color:var(--cyan);
+    border:1px solid rgba(54,224,220,.35);padding:4px 9px;border-radius:999px;white-space:nowrap;
+  }
+  .pyear{font-family:"Space Mono",monospace;color:var(--muted);font-size:13px;margin-top:10px}
 
-    /* ── SKILLS ── */
-    #skills {
-      padding: 6rem 5rem;
-      background: var(--mist);
-    }
-    .skills-header {
-      display: grid;
-      grid-template-columns: 1fr 1.6fr;
-      gap: 6rem;
-      margin-bottom: 3.5rem;
-    }
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 1.2rem;
-    }
-    .skill-card {
-      background: var(--paper);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 1.5rem;
-      transition: box-shadow 0.2s, transform 0.2s;
-    }
-    .skill-card:hover {
-      box-shadow: 0 8px 24px rgba(0,0,0,0.07);
-      transform: translateY(-2px);
-    }
-    .skill-icon {
-      font-size: 1.5rem;
-      margin-bottom: 0.75rem;
-    }
-    .skill-name {
-      font-weight: 500;
-      font-size: 0.95rem;
-      margin-bottom: 0.4rem;
-    }
-    .skill-desc {
-      font-size: 0.82rem;
-      color: var(--soft);
-      line-height: 1.6;
-    }
+  /* SKILLS ----------------------------------------------------------- */
+  .skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,72px);align-items:end}
+  .eq{display:flex;flex-direction:column;gap:22px}
+  .skill .srow{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:9px}
+  .skill .sname{font-family:"Syne",sans-serif;font-weight:600;font-size:18px}
+  .skill .spct{font-family:"Space Mono",monospace;font-size:12px;color:var(--muted)}
+  .meter{height:8px;background:rgba(255,255,255,.05);border-radius:99px;overflow:hidden;position:relative}
+  .meter i{
+    display:block;height:100%;width:0;border-radius:99px;
+    background:linear-gradient(90deg,var(--cyan),var(--coral));
+    transition:width 1.1s cubic-bezier(.2,.7,.2,1);
+  }
+  .skills-note{font-family:"Space Mono",monospace;font-size:13px;color:var(--muted);line-height:1.9}
+  .skills-note .big{
+    display:block;font-family:"Syne",sans-serif;font-weight:800;color:var(--text);
+    font-size:clamp(40px,7vw,90px);line-height:.9;letter-spacing:-.03em;margin-bottom:14px;
+  }
 
-    /* ── PORTFOLIO ── */
-    #portfolio {
-      padding: 6rem 5rem;
-    }
-    .portfolio-header {
-      display: grid;
-      grid-template-columns: 1fr 1.6fr;
-      gap: 6rem;
-      margin-bottom: 3.5rem;
-      align-items: end;
-    }
-    .portfolio-header h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(1.8rem, 3vw, 2.6rem);
-      line-height: 1.2;
-      letter-spacing: -0.01em;
-    }
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.5rem;
-    }
-    .project-card {
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      overflow: hidden;
-      background: #fff;
-      transition: box-shadow 0.2s, transform 0.2s;
-      text-decoration: none;
-      color: inherit;
-      display: block;
-    }
-    .project-card:hover {
-      box-shadow: 0 10px 30px rgba(0,0,0,0.09);
-      transform: translateY(-3px);
-    }
-    .project-thumb {
-      height: 180px;
-      background: linear-gradient(135deg, #e8ecf8 0%, #dce3f5 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2.5rem;
-    }
-    .project-info { padding: 1.4rem; }
-    .project-tag {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.7rem;
-      color: var(--accent);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-bottom: 0.5rem;
-    }
-    .project-title {
-      font-weight: 500;
-      font-size: 1rem;
-      margin-bottom: 0.4rem;
-    }
-    .project-desc {
-      font-size: 0.83rem;
-      color: var(--soft);
-      line-height: 1.6;
-    }
+  /* CONTACT ---------------------------------------------------------- */
+  .contact{text-align:left}
+  .bigmail{
+    font-family:"Syne",sans-serif;font-weight:800;text-decoration:none;color:var(--text);
+    font-size:clamp(30px,7vw,90px);letter-spacing:-.03em;line-height:1;display:inline-block;
+    position:relative;transition:color .3s;word-break:break-word;
+  }
+  .bigmail::after{content:"";position:absolute;left:0;bottom:.04em;height:3px;width:100%;background:var(--coral);transform:scaleX(0);transform-origin:left;transition:transform .4s ease}
+  .bigmail:hover,.bigmail:focus-visible{color:var(--coral);outline:none}
+  .bigmail:hover::after,.bigmail:focus-visible::after{transform:scaleX(1)}
+  .socials{display:flex;gap:26px;flex-wrap:wrap;margin-top:clamp(34px,5vh,56px);font-family:"Space Mono",monospace;font-size:13px;letter-spacing:.06em}
+  .socials a{color:var(--muted);text-decoration:none;transition:color .25s;border-bottom:1px solid transparent;padding-bottom:2px}
+  .socials a:hover,.socials a:focus-visible{color:var(--cyan);border-color:var(--cyan);outline:none}
 
-    /* ── CONTACT ── */
-    #contact {
-      padding: 6rem 5rem;
-      background: var(--ink);
-      color: #fff;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6rem;
-      align-items: center;
-    }
-    #contact .section-label { color: #666; }
-    #contact h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(2rem, 4vw, 3.5rem);
-      line-height: 1.1;
-      margin-top: 1rem;
-      letter-spacing: -0.02em;
-    }
-    #contact h2 em { color: var(--accent); font-style: italic; }
-    .contact-links { display: flex; flex-direction: column; gap: 1.2rem; }
-    .contact-link {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      text-decoration: none;
-      color: #ccc;
-      font-size: 0.95rem;
-      transition: color 0.2s;
-      padding: 1rem 1.2rem;
-      border: 1px solid #333;
-      border-radius: 4px;
-    }
-    .contact-link:hover { color: #fff; border-color: #555; }
-    .contact-link-icon {
-      font-size: 1.2rem;
-      flex-shrink: 0;
-    }
-    .contact-link-label { font-size: 0.72rem; color: #666; margin-top: 0.1rem; }
+  footer{position:relative;z-index:2;border-top:1px solid var(--line);padding:30px 0;margin-top:40px}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-family:"Space Mono",monospace;font-size:12px;color:var(--muted);letter-spacing:.06em}
 
-    /* ── FOOTER ── */
-    footer {
-      text-align: center;
-      padding: 2rem;
-      font-family: 'DM Mono', monospace;
-      font-size: 0.72rem;
-      color: var(--soft);
-      border-top: 1px solid var(--border);
-    }
+  /* reveal animation ------------------------------------------------- */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
 
-    /* ── RESPONSIVE ── */
-    @media (max-width: 900px) {
-      nav { padding: 1rem 1.5rem; }
-      .nav-links { gap: 1.2rem; }
-      #hero {
-        grid-template-columns: 1fr;
-        padding: 7rem 2rem 4rem;
-        text-align: center;
-      }
-      .hero-visual { display: none; }
-      .hero-sub { max-width: 100%; }
-      .hero-ctas { justify-content: center; }
+  /* responsive ------------------------------------------------------- */
+  @media (max-width:860px){
+    .index{display:none}
+    .about-grid{grid-template-columns:1fr}
+    .skills-grid{grid-template-columns:1fr;gap:48px}
+    .project{grid-template-columns:auto 1fr;gap:14px}
+    .project .ptags{grid-column:1/-1;justify-content:flex-start;max-width:none;margin-top:6px}
+    .project .pnum{align-self:start}
+  }
 
-      #about, #skills .skills-header, .portfolio-header, #contact {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-      }
-      #about, #skills, #portfolio, #contact {
-        padding: 4rem 2rem;
-      }
-      .section-divider { margin: 0 2rem; }
-      .facts { gap: 1.5rem; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      .skill-card, .project-card { transition: none; }
-    }
-
-    /* scroll fade-in */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    .fade-in.visible {
-      opacity: 1;
-      transform: none;
-    }
-  </style>
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+    .name{text-shadow:3px 3px 0 var(--coral),-3px -3px 0 var(--cyan)}
+    .reveal{opacity:1;transform:none}
+  }
+</style>
 </head>
 <body>
 
-<!-- ── NAV ── -->
-<nav>
-  <span class="nav-logo">// dein-name</span>
-  <ul class="nav-links">
-    <li><a href="#about">Über mich</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#portfolio">Projekte</a></li>
-    <li><a href="#contact">Kontakt</a></li>
-  </ul>
+<canvas id="field"></canvas>
+<div class="glow" aria-hidden="true"></div>
+
+<nav class="index" aria-label="Seitennavigation">
+  <a href="#hero"><span class="tick"></span><span class="lbl">00 / Start</span></a>
+  <a href="#about"><span class="tick"></span><span class="lbl">01 / Über</span></a>
+  <a href="#work"><span class="tick"></span><span class="lbl">02 / Arbeiten</span></a>
+  <a href="#skills"><span class="tick"></span><span class="lbl">03 / Können</span></a>
+  <a href="#contact"><span class="tick"></span><span class="lbl">04 / Kontakt</span></a>
 </nav>
 
-<!-- ── HERO ── -->
-<section id="hero">
-  <div class="hero-text fade-in">
-    <p class="hero-eyebrow">Verfügbar für neue Projekte</p>
-    <h1 class="hero-name">
-      Hallo,<br />ich bin <em>Dein Name.</em>
-    </h1>
-    <p class="hero-sub">
-      Kurze, prägnante Beschreibung von dir – was du machst, was dich antreibt und was du für andere tun kannst.
-    </p>
-    <div class="hero-ctas">
-      <a href="#portfolio" class="btn btn-primary">Meine Projekte</a>
-      <a href="#contact" class="btn btn-outline">Kontakt aufnehmen</a>
+<main>
+  <!-- HERO -->
+  <section id="hero" class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Portfolio — multidisziplinäre Gestaltung</p>
+      <h1 class="name" id="name"><span>Mara</span><span>Lenz</span></h1>
+      <p class="tagline">Ich gestalte da, wo <em>Konzept</em> auf <em>Gefühl</em> trifft.</p>
+      <div class="hero-foot">
+        <span>WIEN · AT</span>
+        <span>BRAND / UI / MOTION</span>
+        <span class="scrollhint">SCROLL <span class="bar"></span></span>
+      </div>
     </div>
-  </div>
-  <div class="hero-visual fade-in">
-    <div style="position:relative;">
-      <div class="avatar-frame">
-        <!-- Ersetze diesen Block durch: <img src="dein-foto.jpg" alt="Dein Name"> -->
-        <div class="avatar-placeholder">
-          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-            <circle cx="12" cy="7" r="4"/>
-          </svg>
-          <span>Foto einfügen</span>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap about-grid">
+      <div class="reveal">
+        <p class="eyebrow">01 — Über mich</p>
+        <h2>Zwischen Raster und Bauchgefühl.</h2>
+        <p class="lead">Ich bin Gestalterin und arbeite an der Schnittstelle von Markenidentität, digitalem Produkt und Bewegtbild. Am liebsten dort, wo eine Idee noch unscharf ist — und Form annehmen will.</p>
+        <p class="muted" style="margin-top:22px;max-width:58ch">Angefangen hat alles mit zu vielen Skizzenbüchern und der Frage, warum manche Dinge sich einfach <em>richtig</em> anfühlen. Heute übersetze ich genau dieses Gefühl in Systeme, Interfaces und kleine Momente, die hängen bleiben. Ich denke in Konzepten, baue in Details — und teste lieber einmal zu oft.</p>
+      </div>
+      <div class="notes reveal">
+        <p class="nt-title">// Field Notes</p>
+        <div class="note-row"><span class="k">Status</span><span class="v live">Offen für Projekte</span></div>
+        <div class="note-row"><span class="k">Standort</span><span class="v">Wien · Remote</span></div>
+        <div class="note-row"><span class="k">Fokus</span><span class="v">Brand &amp; Produkt</span></div>
+        <div class="note-row"><span class="k">Erfahrung</span><span class="v">6+ Jahre</span></div>
+        <div class="note-row"><span class="k">Modus</span><span class="v">Koffein-betrieben</span></div>
+        <div class="note-row"><span class="k">Tools</span><span class="v">Figma · Ae · Blender</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section id="work">
+    <div class="wrap">
+      <div class="work-head reveal">
+        <div>
+          <p class="eyebrow">02 — Ausgewählte Arbeiten</p>
+          <h2>Was ich gebaut habe.</h2>
+        </div>
+        <span class="count">04 / Projekte</span>
+      </div>
+
+      <div class="projects">
+        <article class="project reveal">
+          <span class="pnum">01</span>
+          <div class="pmain">
+            <h3>Nordlys — Rebrand</h3>
+            <p class="pdesc">Komplette visuelle Identität für ein Klima-Startup: Logo, Sprache, Designsystem und Pitch-Deck.</p>
+            <p class="pyear">2025</p>
+          </div>
+          <div class="ptags"><span class="tag">Branding</span><span class="tag">Strategie</span></div>
+        </article>
+
+        <article class="project reveal">
+          <span class="pnum">02</span>
+          <div class="pmain">
+            <h3>Flux — App-Design</h3>
+            <p class="pdesc">Von der Idee zum klickbaren Prototyp: UX-Konzept und UI für eine Musik-Collab-App.</p>
+            <p class="pyear">2024</p>
+          </div>
+          <div class="ptags"><span class="tag">UI / UX</span><span class="tag">Prototyp</span></div>
+        </article>
+
+        <article class="project reveal">
+          <span class="pnum">03</span>
+          <div class="pmain">
+            <h3>Echo — Titelsequenz</h3>
+            <p class="pdesc">Animierte Opening-Sequenz für einen Kurzfilm. Konzept, Design und Motion in 3D.</p>
+            <p class="pyear">2024</p>
+          </div>
+          <div class="ptags"><span class="tag">Motion</span><span class="tag">3D</span></div>
+        </article>
+
+        <article class="project reveal">
+          <span class="pnum">04</span>
+          <div class="pmain">
+            <h3>Studio Lenz — Editorial</h3>
+            <p class="pdesc">Eigenes Magazin-Projekt über lokale Handwerksbetriebe. Konzept, Layout, Fotografie.</p>
+            <p class="pyear">2023</p>
+          </div>
+          <div class="ptags"><span class="tag">Editorial</span><span class="tag">Art Direction</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="wrap">
+      <p class="eyebrow reveal">03 — Können</p>
+      <div class="skills-grid">
+        <div class="eq reveal">
+          <div class="skill">
+            <div class="srow"><span class="sname">Brand &amp; Identity</span><span class="spct">92%</span></div>
+            <div class="meter"><i data-level="92"></i></div>
+          </div>
+          <div class="skill">
+            <div class="srow"><span class="sname">UI / UX Design</span><span class="spct">88%</span></div>
+            <div class="meter"><i data-level="88"></i></div>
+          </div>
+          <div class="skill">
+            <div class="srow"><span class="sname">Motion &amp; 3D</span><span class="spct">76%</span></div>
+            <div class="meter"><i data-level="76"></i></div>
+          </div>
+          <div class="skill">
+            <div class="srow"><span class="sname">Art Direction</span><span class="spct">84%</span></div>
+            <div class="meter"><i data-level="84"></i></div>
+          </div>
+          <div class="skill">
+            <div class="srow"><span class="sname">Illustration</span><span class="spct">70%</span></div>
+            <div class="meter"><i data-level="70"></i></div>
+          </div>
+        </div>
+        <div class="skills-note reveal">
+          <span class="big">Generalistin<br>mit Tiefe.</span>
+          Ich arbeite breit — aber nie oberflächlich.<br>
+          Wenn etwas Spezialwissen braucht, hole ich<br>
+          es mir. Neugier ist mein wichtigstes Werkzeug.
         </div>
       </div>
-      <div class="float-tag">📍 Wien, Österreich</div>
     </div>
-  </div>
-</section>
+  </section>
 
-<hr class="section-divider" />
-
-<!-- ── ABOUT ── -->
-<section id="about">
-  <div class="section-label fade-in">Über mich</div>
-  <div class="about-body fade-in">
-    <h2>Wer steckt hinter diesem Portfolio?</h2>
-    <p>
-      Hier erzählst du deine Geschichte. Was hat dich in deinen Bereich gebracht? Was begeistert dich an deiner Arbeit? Schreib locker und persönlich – Recruiter lesen lieber eine echte Person als einen Lebenslauf in Fließtext.
-    </p>
-    <p>
-      Ein zweiter Absatz gibt dir Raum für deinen Hintergrund, deine Ausbildung oder deinen Werdegang. Halte es kurz – drei bis vier Sätze reichen völlig.
-    </p>
-
-    <div class="facts">
-      <div class="fact-item">
-        <div class="fact-value">3+</div>
-        <div class="fact-label">Jahre Erfahrung</div>
-      </div>
-      <div class="fact-item">
-        <div class="fact-value">12</div>
-        <div class="fact-label">Projekte abgeschlossen</div>
-      </div>
-      <div class="fact-item">
-        <div class="fact-value">BSc</div>
-        <div class="fact-label">Dein Abschluss</div>
+  <!-- CONTACT -->
+  <section id="contact" class="contact">
+    <div class="wrap reveal">
+      <p class="eyebrow">04 — Kontakt</p>
+      <h2 style="margin-bottom:36px">Lass uns reden.</h2>
+      <a class="bigmail" href="mailto:hallo@maralenz.de">hallo@maralenz.de</a>
+      <div class="socials">
+        <a href="#">Instagram ↗</a>
+        <a href="#">Behance ↗</a>
+        <a href="#">LinkedIn ↗</a>
+        <a href="#">CV / PDF ↗</a>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+</main>
 
-<hr class="section-divider" />
-
-<!-- ── SKILLS ── -->
-<section id="skills">
-  <div class="skills-header">
-    <div class="section-label fade-in">Skills</div>
-    <h2 class="fade-in" style="font-family:'DM Serif Display',serif; font-size:clamp(1.8rem,3vw,2.6rem); line-height:1.2; letter-spacing:-0.01em;">
-      Was ich mitbringe
-    </h2>
-  </div>
-
-  <div class="skills-grid">
-    <div class="skill-card fade-in">
-      <div class="skill-icon">⚡</div>
-      <div class="skill-name">Skill / Tool 1</div>
-      <div class="skill-desc">Kurze Beschreibung – z.B. wie lange du es nutzt oder wofür du es einsetzt.</div>
-    </div>
-    <div class="skill-card fade-in">
-      <div class="skill-icon">🔍</div>
-      <div class="skill-name">Skill / Tool 2</div>
-      <div class="skill-desc">Kurze Beschreibung – z.B. wie lange du es nutzt oder wofür du es einsetzt.</div>
-    </div>
-    <div class="skill-card fade-in">
-      <div class="skill-icon">💡</div>
-      <div class="skill-name">Skill / Tool 3</div>
-      <div class="skill-desc">Kurze Beschreibung – z.B. wie lange du es nutzt oder wofür du es einsetzt.</div>
-    </div>
-    <div class="skill-card fade-in">
-      <div class="skill-icon">🛠</div>
-      <div class="skill-name">Skill / Tool 4</div>
-      <div class="skill-desc">Kurze Beschreibung – z.B. wie lange du es nutzt oder wofür du es einsetzt.</div>
-    </div>
-    <div class="skill-card fade-in">
-      <div class="skill-icon">📊</div>
-      <div class="skill-name">Skill / Tool 5</div>
-      <div class="skill-desc">Kurze Beschreibung – z.B. wie lange du es nutzt oder wofür du es einsetzt.</div>
-    </div>
-    <div class="skill-card fade-in">
-      <div class="skill-icon">🤝</div>
-      <div class="skill-name">Soft Skill</div>
-      <div class="skill-desc">Teamarbeit, Kommunikation, Problemlösung – auch das gehört dazu.</div>
-    </div>
-  </div>
-</section>
-
-<hr class="section-divider" />
-
-<!-- ── PORTFOLIO ── -->
-<section id="portfolio">
-  <div class="portfolio-header">
-    <div class="section-label fade-in">Projekte</div>
-    <div class="fade-in">
-      <h2>Ausgewählte Arbeiten</h2>
-    </div>
-  </div>
-
-  <div class="projects-grid">
-    <a href="#" class="project-card fade-in">
-      <div class="project-thumb">🚀</div>
-      <div class="project-info">
-        <div class="project-tag">Kategorie · 2024</div>
-        <div class="project-title">Projektname 1</div>
-        <div class="project-desc">Was war die Aufgabe? Was hast du gebaut / beigetragen? Was war das Ergebnis?</div>
-      </div>
-    </a>
-    <a href="#" class="project-card fade-in">
-      <div class="project-thumb">📱</div>
-      <div class="project-info">
-        <div class="project-tag">Kategorie · 2024</div>
-        <div class="project-title">Projektname 2</div>
-        <div class="project-desc">Was war die Aufgabe? Was hast du gebaut / beigetragen? Was war das Ergebnis?</div>
-      </div>
-    </a>
-    <a href="#" class="project-card fade-in">
-      <div class="project-thumb">🌍</div>
-      <div class="project-info">
-        <div class="project-tag">Kategorie · 2023</div>
-        <div class="project-title">Projektname 3</div>
-        <div class="project-desc">Was war die Aufgabe? Was hast du gebaut / beigetragen? Was war das Ergebnis?</div>
-      </div>
-    </a>
-  </div>
-</section>
-
-<!-- ── CONTACT ── -->
-<section id="contact">
-  <div class="fade-in">
-    <p class="section-label">Kontakt</p>
-    <h2>Lass uns<br /><em>reden.</em></h2>
-  </div>
-  <div class="contact-links fade-in">
-    <a href="mailto:deine@email.com" class="contact-link">
-      <span class="contact-link-icon">✉️</span>
-      <div>
-        <div>deine@email.com</div>
-        <div class="contact-link-label">E-Mail</div>
-      </div>
-    </a>
-    <a href="https://linkedin.com/in/dein-profil" target="_blank" class="contact-link">
-      <span class="contact-link-icon">💼</span>
-      <div>
-        <div>linkedin.com/in/dein-profil</div>
-        <div class="contact-link-label">LinkedIn</div>
-      </div>
-    </a>
-    <a href="https://github.com/dein-username" target="_blank" class="contact-link">
-      <span class="contact-link-icon">🐙</span>
-      <div>
-        <div>github.com/dein-username</div>
-        <div class="contact-link-label">GitHub</div>
-      </div>
-    </a>
-  </div>
-</section>
-
-<!-- ── FOOTER ── -->
 <footer>
-  <p>© 2025 Dein Name — Mit ♥ gebaut &amp; auf GitHub Pages gehostet</p>
+  <div class="wrap">
+    <span>© <span id="yr"></span> Mara Lenz</span>
+    <span>Gebaut mit Koffein in Wien</span>
+  </div>
 </footer>
 
 <script>
-  // Scroll fade-in
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        observer.unobserve(e.target);
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* year */
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  /* ---- cursor glow + RGB split hero ---- */
+  var root = document.documentElement;
+  var name = document.getElementById('name');
+  var targetDX=0,targetDY=0,curDX=0,curDY=0;
+
+  function onMove(e){
+    root.style.setProperty('--mx', e.clientX+'px');
+    root.style.setProperty('--my', e.clientY+'px');
+    if(reduce) return;
+    var r = name.getBoundingClientRect();
+    var cx = r.left + r.width/2, cy = r.top + r.height/2;
+    var dist = Math.hypot(e.clientX-cx, e.clientY-cy);
+    // closer cursor => stronger split (max ~8px)
+    var strength = Math.max(0, 1 - dist/700);
+    var dirX = (e.clientX-cx)/(r.width/2 || 1);
+    var dirY = (e.clientY-cy)/(r.height/2 || 1);
+    targetDX = Math.max(-9,Math.min(9, dirX*8*strength));
+    targetDY = Math.max(-9,Math.min(9, dirY*8*strength));
+  }
+  window.addEventListener('mousemove', onMove, {passive:true});
+
+  if(!reduce){
+    (function loop(){
+      curDX += (targetDX-curDX)*0.12;
+      curDY += (targetDY-curDY)*0.12;
+      root.style.setProperty('--dx', curDX.toFixed(2)+'px');
+      root.style.setProperty('--dy', curDY.toFixed(2)+'px');
+      requestAnimationFrame(loop);
+    })();
+  }
+
+  /* ---- ambient dot field ---- */
+  var canvas = document.getElementById('field');
+  var ctx = canvas.getContext('2d');
+  var dots=[], W,H, mouse={x:-999,y:-999};
+  var GAP = 46;
+
+  function build(){
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+    dots=[];
+    for(var y=GAP; y<H; y+=GAP){
+      for(var x=GAP; x<W; x+=GAP){
+        dots.push({x:x,y:y,bx:x,by:y});
+      }
+    }
+  }
+  build();
+  window.addEventListener('resize', build);
+  window.addEventListener('mousemove', function(e){mouse.x=e.clientX;mouse.y=e.clientY;}, {passive:true});
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    for(var i=0;i<dots.length;i++){
+      var d=dots[i];
+      var dx=d.bx-mouse.x, dy=d.by-mouse.y;
+      var dist=Math.hypot(dx,dy);
+      var near = dist<140;
+      if(near && !reduce){
+        var f=(140-dist)/140;
+        d.x = d.bx + (dx/dist)*f*14;
+        d.y = d.by + (dy/dist)*f*14;
+      }else{
+        d.x += (d.bx-d.x)*0.1;
+        d.y += (d.by-d.y)*0.1;
+      }
+      var size = near ? 1.6+1.6*((140-dist)/140) : 1;
+      ctx.beginPath();
+      ctx.arc(d.x,d.y,size,0,6.283);
+      if(near){
+        var t=(140-dist)/140;
+        ctx.fillStyle='rgba('+Math.round(54+200*t)+','+Math.round(224-130*t)+','+Math.round(220-160*t)+','+(0.25+0.55*t)+')';
+      }else{
+        ctx.fillStyle='rgba(236,231,244,0.10)';
+      }
+      ctx.fill();
+    }
+    requestAnimationFrame(draw);
+  }
+  if(reduce){
+    // static render once
+    for(var i=0;i<dots.length;i++){var d=dots[i];ctx.beginPath();ctx.arc(d.x,d.y,1,0,6.283);ctx.fillStyle='rgba(236,231,244,0.10)';ctx.fill();}
+  }else{
+    draw();
+  }
+
+  /* ---- scroll reveal ---- */
+  var revs = document.querySelectorAll('.reveal');
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+    });
+  },{threshold:0.15});
+  revs.forEach(function(el){io.observe(el);});
+
+  /* ---- skill meters ---- */
+  var meters = document.querySelectorAll('.meter i');
+  var mio = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){
+        en.target.style.width = en.target.getAttribute('data-level')+'%';
+        mio.unobserve(en.target);
       }
     });
-  }, { threshold: 0.12 });
+  },{threshold:0.4});
+  meters.forEach(function(el){mio.observe(el);});
 
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  /* ---- active nav ---- */
+  var links = document.querySelectorAll('.index a');
+  var secMap = {};
+  links.forEach(function(l){ secMap[l.getAttribute('href').slice(1)] = l; });
+  var sections = document.querySelectorAll('main section');
+  var nio = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){
+        links.forEach(function(l){l.classList.remove('active');});
+        var a = secMap[en.target.id];
+        if(a) a.classList.add('active');
+      }
+    });
+  },{rootMargin:'-45% 0px -45% 0px'});
+  sections.forEach(function(s){nio.observe(s);});
+})();
 </script>
 </body>
 </html>
