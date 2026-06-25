@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio – [Dein Name]</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&family=DM+Mono&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:    #1a1a1a;
+      --mist:   #f0eeea;
+      --paper:  #faf9f7;
+      --accent: #2d5be3;
+      --soft:   #9b9b8e;
+      --border: #e2e0db;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 2.5rem;
+      background: rgba(250,249,247,0.88);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.85rem;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--soft);
+      font-size: 0.9rem;
+      font-weight: 400;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 8rem 5rem 5rem;
+      gap: 4rem;
+    }
+    .hero-text {}
+    .hero-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+    }
+    .hero-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+    }
+    .hero-name em {
+      font-style: italic;
+      color: var(--accent);
+    }
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--soft);
+      max-width: 420px;
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+    }
+    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 1.75rem;
+      border-radius: 3px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+    .btn-primary:hover { background: #1e47c8; }
+    .btn-outline {
+      border: 1.5px solid var(--border);
+      color: var(--ink);
+      background: transparent;
+    }
+    .btn-outline:hover { border-color: var(--ink); }
+
+    /* avatar placeholder */
+    .hero-visual {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .avatar-frame {
+      width: 340px; height: 420px;
+      background: var(--mist);
+      border-radius: 200px 200px 160px 160px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .avatar-frame img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .avatar-placeholder {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 0.5rem;
+      color: var(--soft);
+    }
+    .avatar-placeholder svg { opacity: 0.35; }
+    .avatar-placeholder span {
+      font-size: 0.75rem;
+      font-family: 'DM Mono', monospace;
+      opacity: 0.5;
+    }
+
+    /* floating tag */
+    .float-tag {
+      position: absolute; bottom: 2rem; left: -1.5rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.6rem 1rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--accent);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    }
+
+    /* ── DIVIDER ── */
+    .section-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0 5rem;
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      padding: 6rem 5rem;
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 6rem;
+      align-items: start;
+    }
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--soft);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding-top: 0.4rem;
+    }
+    .about-body h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.01em;
+    }
+    .about-body p {
+      color: #444;
+      line-height: 1.85;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+
+    /* facts row */
+    .facts {
+      display: flex;
+      gap: 2.5rem;
+      margin-top: 2.5rem;
+      flex-wrap: wrap;
+    }
+    .fact-item {}
+    .fact-value {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2rem;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .fact-label {
+      font-size: 0.8rem;
+      color: var(--soft);
+      margin-top: 0.2rem;
+    }
+
+    /* ── SKILLS ── */
+    #skills {
+      padding: 6rem 5rem;
+      background: var(--mist);
+    }
+    .skills-header {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 6rem;
+      margin-bottom: 3.5rem;
+    }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.2rem;
+    }
+    .skill-card {
+      background: var(--paper);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.5rem;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .skill-card:hover {
+      box-shadow: 0 8px 24px rgba(0,0,0,0.07);
+      transform: translateY(-2px);
+    }
+    .skill-icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .skill-name {
+      font-weight: 500;
+      font-size: 0.95rem;
+      margin-bottom: 0.4rem;
+    }
+    .skill-desc {
+      font-size: 0.82rem;
+      color: var(--soft);
+      line-height: 1.6;
+    }
+
+    /* ── PORTFOLIO ── */
+    #portfolio {
+      padding: 6rem 5rem;
+    }
+    .portfolio-header {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 6rem;
+      margin-bottom: 3.5rem;
+      align-items: end;
+    }
+    .portfolio-header h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+    }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .project-card {
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      background: #fff;
+      transition: box-shadow 0.2s, transform 0.2s;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .project-card:hover {
+      box-shadow: 0 10px 30px rgba(0,0,0,0.09);
+      transform: translateY(-3px);
+    }
+    .project-thumb {
+      height: 180px;
+      background: linear-gradient(135deg, #e8ecf8 0%, #dce3f5 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+    }
+    .project-info { padding: 1.4rem; }
+    .project-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .project-title {
+      font-weight: 500;
+      font-size: 1rem;
+      margin-bottom: 0.4rem;
+    }
+    .project-desc {
+      font-size: 0.83rem;
+      color: var(--soft);
+      line-height: 1.6;
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      padding: 6rem 5rem;
+      background: var(--ink);
+      color: #fff;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+    #contact .section-label { color: #666; }
+    #contact h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      line-height: 1.1;
+      margin-top: 1rem;
+      letter-spacing: -0.02em;
+    }
+    #contact h2 em { color: var(--accent); font-style: italic; }
+    .contact-links { display: flex; flex-direction: column; gap: 1.2rem; }
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      text-decoration: none;
+      color: #ccc;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+      padding: 1rem 1.2rem;
+      border: 1px solid #333;
+      border-radius: 4px;
+    }
+    .contact-link:hover { color: #fff; border-color: #555; }
+    .contact-link-icon {
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .contact-link-label { font-size: 0.72rem; color: #666; margin-top: 0.1rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--soft);
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.2rem; }
+      #hero {
+        grid-template-columns: 1fr;
+        padding: 7rem 2rem 4rem;
+        text-align: center;
+      }
+      .hero-visual { display: none; }
+      .hero-sub { max-width: 100%; }
+      .hero-ctas { justify-content: center; }
+
+      #about, #skills .skills-header, .portfolio-header, #contact {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      #about, #skills, #portfolio, #contact {
+        padding: 4rem 2rem;
+      }
+      .section-divider { margin: 0 2rem; }
+      .facts { gap: 1.5rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .skill-card, .project-card { transition: none; }
+    }
+
+    /* scroll fade-in */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: none;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <span class="nav-logo">// dein-name</span>
+  <ul class="nav-links">
+    <li><a href="#about">Über mich</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#portfolio">Projekte</a></li>
+    <li><a href="#contact">Kontakt</a></li>
+  </ul>
+</nav>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <div class="hero-text fade-in">
+    <p class="hero-eyebrow">Verfügbar für neue Projekte</p>
+    <h1 class="hero-name">
+      Hallo,<br />ich bin <em>Dein Name.</em>
+    </h1>
+    <p class="hero-sub">
+      Kurze, prägnante Beschreibung von dir – was du machst, was dich antreibt und was du für andere tun kannst.
+    </p>
+    <div class="hero-ctas">
+      <a href="#portfolio" class="btn btn-primary">Meine Projekte</a>
+      <a href="#contact" class="btn btn-outline">Kontakt aufnehmen</a>
+    </div>
+  </div>
+  <div class="hero-visual fade-in">
+    <div style="position:relative;">
+      <div class="avatar-frame">
+        <!-- Ersetze diesen Block durch: <img src="dein-foto.jpg" alt="Dein Name"> -->
+        <div class="avatar-placeholder">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+          <span>Foto einfügen</span>
+        </div>
+      </div>
+      <div class="float-tag">📍 Wien, Österreich</div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider" />
+
+<!-- ── ABOUT ── -->
+<section id="about">
+  <div class="section-label fade-in">Über mich</div>
+  <div class="about-body fade-in">
+    <h2>Wer steckt hinter diesem Portfolio?</h2>
+    <p>
+      Hier erzählst du deine Geschichte. Was hat dich in deinen Bereich gebracht? Was begeistert dich an deiner Arbeit? Schreib locker und persönlich – Recruiter lesen lieber eine echte Person als einen Lebenslauf in Fließtext.
+    </p>
+    <p>
+      Ein zweiter Absatz gibt dir Raum für deinen Hintergrund, deine Ausbildung oder deinen Werdegang. Halte es kurz – drei bis vier Sätze reichen völlig.
+    </p>
+
+    <div class="facts">
+      <div class="fact-item">
+        <div class="fact-value">3+</div>
+        <div class="fact-label">Jahre Erfahrung</div>
+      </div>
+      <div class="fact-item">
+        <div class="fact-value">12</div>
+        <div class="fact-label">Projekte abgeschlossen</div>
+      </div>
+      <div class="fact-item">
+        <div class="fact-value">BSc</div>
+        <div class="fact-label">Dein Abschluss</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider" />
+
+<!-- ── SKILLS ── -->
+<section id="skills">
+  <div class="skills-header">
+    <div class="section-label fade-in">Skills</div>
+    <h2 class="fade-in" style="font-family:'DM Serif Display',serif; font-size:clamp(1.8rem,3vw,2.6rem); line-height:1.2; letter-spacing:-0.01em;">
+      Was ich mitbringe
+    </h2>
+  </div>
+
+  <div class="skills-grid">
+    <div class="skill-card fade-in">
+      <div class="skill-icon">⚡</div>
+      <div class="skill-name">Skill / Tool 1</div>
+      <div class="skill-desc">Kurze Beschreibung – z.B. wie lange du es nutzt oder wofür du es einsetzt.</div>
+    </div>
+    <div class="skill-card fade-in">
+      <div class="skill-icon">🔍</div>
+      <div class="skill-name">Skill / Tool 2</div>
+      <div class="skill-desc">Kurze Beschreibung – z.B. wie lange du es nutzt oder wofür du es einsetzt.</div>
+    </div>
+    <div class="skill-card fade-in">
+      <div class="skill-icon">💡</div>
+      <div class="skill-name">Skill / Tool 3</div>
+      <div class="skill-desc">Kurze Beschreibung – z.B. wie lange du es nutzt oder wofür du es einsetzt.</div>
+    </div>
+    <div class="skill-card fade-in">
+      <div class="skill-icon">🛠</div>
+      <div class="skill-name">Skill / Tool 4</div>
+      <div class="skill-desc">Kurze Beschreibung – z.B. wie lange du es nutzt oder wofür du es einsetzt.</div>
+    </div>
+    <div class="skill-card fade-in">
+      <div class="skill-icon">📊</div>
+      <div class="skill-name">Skill / Tool 5</div>
+      <div class="skill-desc">Kurze Beschreibung – z.B. wie lange du es nutzt oder wofür du es einsetzt.</div>
+    </div>
+    <div class="skill-card fade-in">
+      <div class="skill-icon">🤝</div>
+      <div class="skill-name">Soft Skill</div>
+      <div class="skill-desc">Teamarbeit, Kommunikation, Problemlösung – auch das gehört dazu.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider" />
+
+<!-- ── PORTFOLIO ── -->
+<section id="portfolio">
+  <div class="portfolio-header">
+    <div class="section-label fade-in">Projekte</div>
+    <div class="fade-in">
+      <h2>Ausgewählte Arbeiten</h2>
+    </div>
+  </div>
+
+  <div class="projects-grid">
+    <a href="#" class="project-card fade-in">
+      <div class="project-thumb">🚀</div>
+      <div class="project-info">
+        <div class="project-tag">Kategorie · 2024</div>
+        <div class="project-title">Projektname 1</div>
+        <div class="project-desc">Was war die Aufgabe? Was hast du gebaut / beigetragen? Was war das Ergebnis?</div>
+      </div>
+    </a>
+    <a href="#" class="project-card fade-in">
+      <div class="project-thumb">📱</div>
+      <div class="project-info">
+        <div class="project-tag">Kategorie · 2024</div>
+        <div class="project-title">Projektname 2</div>
+        <div class="project-desc">Was war die Aufgabe? Was hast du gebaut / beigetragen? Was war das Ergebnis?</div>
+      </div>
+    </a>
+    <a href="#" class="project-card fade-in">
+      <div class="project-thumb">🌍</div>
+      <div class="project-info">
+        <div class="project-tag">Kategorie · 2023</div>
+        <div class="project-title">Projektname 3</div>
+        <div class="project-desc">Was war die Aufgabe? Was hast du gebaut / beigetragen? Was war das Ergebnis?</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section id="contact">
+  <div class="fade-in">
+    <p class="section-label">Kontakt</p>
+    <h2>Lass uns<br /><em>reden.</em></h2>
+  </div>
+  <div class="contact-links fade-in">
+    <a href="mailto:deine@email.com" class="contact-link">
+      <span class="contact-link-icon">✉️</span>
+      <div>
+        <div>deine@email.com</div>
+        <div class="contact-link-label">E-Mail</div>
+      </div>
+    </a>
+    <a href="https://linkedin.com/in/dein-profil" target="_blank" class="contact-link">
+      <span class="contact-link-icon">💼</span>
+      <div>
+        <div>linkedin.com/in/dein-profil</div>
+        <div class="contact-link-label">LinkedIn</div>
+      </div>
+    </a>
+    <a href="https://github.com/dein-username" target="_blank" class="contact-link">
+      <span class="contact-link-icon">🐙</span>
+      <div>
+        <div>github.com/dein-username</div>
+        <div class="contact-link-label">GitHub</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <p>© 2025 Dein Name — Mit ♥ gebaut &amp; auf GitHub Pages gehostet</p>
+</footer>
+
+<script>
+  // Scroll fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
